@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --primary: #f2b831;
+  --primary-hover: #d68f00;
+  --secondary: #747474;
+  --secondary-hover: #5f5f5f;
+
+  --destructive: #d10;
+  --destructive-hover: #b00;
+
+  --success: #0ff179;
+  --success-hover: #0cc065;
+
+  --accent: #333333;
+  --accent-hover: #222222;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root .dark {
+    --background: #141b1e;
+    --foreground: #ffff;
+    --primary: #e6b908;
+    --secondary: #999999;
+    --destructive: #ff4444;
+    --success: #00cc66;
+    --accent: #222222;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--foreground);
+  background: var(--background);
+  line-height: 1.6;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+@layer base {
+  h1 {
+    @apply text-h1;
+  }
+  h2 {
+    @apply text-h2;
+  }
+  h3 {
+    @apply text-h3;
+  }
+  h4 {
+    @apply text-h4;
+  }
+  h5 {
+    @apply text-h5;
+  }
+  h6 {
+    @apply text-h6;
+  }
+}
+
+/* ScrollBar */
+
+body {
+  --sb-track-color: #232e33;
+  --sb-thumb-color: #feb710;
+  --sb-size: 8px;
+}
+
+:is(body, #customTable)::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+:is(body, #customTable)::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+:is(body, #customTable)::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+  #customTable {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* File Input */
+input[type="file"] {
+  cursor: pointer;
+}
+input[type="file"]::-webkit-file-upload-button {
+  display: none;
+}
+
+/* Popup */
+#Popup.open {
+  @apply !scale-100;
+}
+
+#Popup img {
+  @apply object-contain h-full w-full;
+}
+
+/* Input Group */
+#input-group label {
+  @apply absolute z-20 text-[15px] px-2 left-4 -top-[7px] text-sm text-gray-500 bg-white leading-[.9] bg-background;
+}
+#input-group input {
+  @apply text-[15px];
+}
+
+.hidden {
+  display: none;
+}

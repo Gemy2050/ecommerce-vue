@@ -1,0 +1,55 @@
+@import "./base.css";
+
+/** TransitionGroup Styles */
+
+/* .fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0 !important;
+  transform: translateY(10px) !important;
+} */
+
+.fade-leave-active {
+  transition: transform 0.3s ease, opacity 0.3s ease !important;
+}
+
+.fade-leave-to {
+  transform: scale(0.9) !important;
+  opacity: 0 !important;
+}
+
+/** Custom Loader */
+.custom-loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 8px solid #0000;
+  border-right-color: #feb71097;
+  position: relative;
+  animation: s4 1s infinite linear;
+}
+
+.custom-loader:before,
+.custom-loader:after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: inherit;
+  animation: inherit;
+  animation-duration: 2s;
+}
+
+.custom-loader:after {
+  animation-duration: 4s;
+}
+
+@keyframes s4 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
