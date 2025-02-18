@@ -1,5 +1,4 @@
 import "vue3-carousel/carousel.css";
-
 import "./assets/main.css";
 
 import { createApp } from "vue";

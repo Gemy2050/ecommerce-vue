@@ -18,7 +18,7 @@ const { data, isLoading } = useQuery<IProduct[]>({
 });
 </script>
 <template>
-  <div class="container my-16">
+  <main class="container my-16">
     <h2 class="text-primary mb-5">Our Products</h2>
     <div
       class="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center"
@@ -31,5 +31,5 @@ const { data, isLoading } = useQuery<IProduct[]>({
       />
       <ProductSkeleton v-else />
     </div>
-  </div>
+  </main>
 </template>

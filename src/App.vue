@@ -6,9 +6,9 @@ import { useUserAuth } from "./stores/userAuth";
 import { onMounted } from "vue";
 
 const userStore = useUserAuth();
-userStore.getStoredUser();
 
 onMounted(() => {
+  userStore.getStoredUser();
   document.body?.classList.add(localStorage.getItem("mode") || "light");
 });
 </script>

@@ -38,7 +38,7 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="min-h-screen items- justify-center">
+  <main class="min-h-screen justify-center">
     <div class="container flex-col md:flex-row justify-center gap-8 p-4">
       <h1
         class="text-[28px] mt-4 w-full flex-1 flex-shrink-0 sm:text-[40px] text-center font-semibold mb-8"
@@ -103,5 +103,5 @@ const onSubmit = handleSubmit(async (values) => {
       class="w-[150px] md:w-[200px] hidden md:block fixed top-0 left-0 z-[-1] rotate-180"
       alt="square shape"
     />
-  </div>
+  </main>
 </template>

@@ -5,7 +5,7 @@ import Logo from "../ui/Logo.vue";
 
 <template>
   <header
-    class="sticky top-0 z-20 bg-background text-foreground py-[17px] border-b border-border"
+    class="sticky top-0 z-20 bg-background text-foreground py-[17px] border-b border-muted"
   >
     <div class="container flex justify-between items-center">
       <RouterLink to="/">
@@ -14,11 +14,15 @@ import Logo from "../ui/Logo.vue";
       <div>
         <div v-if="$route.path === '/login'" class="text-foreground">
           No account?
-          <RouterLink to="/signup" class="text-primary font-bold"> Sign up </RouterLink>
+          <RouterLink to="/signup" class="text-primary font-bold">
+            Sign up
+          </RouterLink>
         </div>
         <div v-else>
           Have an account?
-          <RouterLink to="/login" class="text-primary font-bold"> Login </RouterLink>
+          <RouterLink to="/login" class="text-primary font-bold">
+            Login
+          </RouterLink>
         </div>
       </div>
     </div>

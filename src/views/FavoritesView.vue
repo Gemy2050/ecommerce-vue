@@ -23,20 +23,22 @@ const favoritesStore = useFavoritesStore();
       </h2>
       <div
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center"
+        v-if="favoritesStore.favorites.length"
       >
         <Product
           v-for="product in favoritesStore.favorites"
           :product="product"
           :key="product.id"
         />
-        <div
-          class="col-span-full text-center p-10 bg-background rounded-lg border-2 border-border"
-          data-aos="fade-up"
-        >
-          <Package :size="40" class="mx-auto mb-4 text-secondary" />
-          <h3 class="text-xl font-semibold mb-2">No Favorites Yet</h3>
-          <p class="text-secondary">Your Favorites items will appear here</p>
-        </div>
+      </div>
+      <div
+        class="mt-10 text-center p-10 bg-background rounded-lg border-2 border-border"
+        data-aos="fade-up"
+        v-else
+      >
+        <Package :size="40" class="mx-auto mb-4 text-secondary" />
+        <h3 class="text-xl font-semibold mb-2">No Favorites Yet</h3>
+        <p class="text-secondary">Your Favorites items will appear here</p>
       </div>
     </div>
   </main>

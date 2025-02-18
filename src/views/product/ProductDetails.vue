@@ -143,7 +143,7 @@ const handleSetSize = (size: number | string) => {
           <Slide v-for="(image, index) in product.productImages" :key="index">
             <img
               :src="image.imageUrl"
-              class="w-full h-auto rounded-lg"
+              class="select-none cursor-grab w-full h-[220px] rounded-lg border border-border shadow-lg"
               alt="Carousel Image"
             />
           </Slide>

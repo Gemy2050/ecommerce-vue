@@ -1,17 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import RegisterView from "@/views/RegisterView.vue";
-import OTPVerification from "@/views/OTPVerification.vue";
-import ForgetPassword from "@/views/ForgetPassword.vue";
-import Cookies from "js-cookie";
+import RegisterView from "@/views/auth/RegisterView.vue";
 import ProductsList from "@/components/product/ProductsList.vue";
-import ContactView from "@/views/ContactView.vue";
-import FavoritesView from "@/views/FavoritesView.vue";
-import OrdersView from "@/views/OrdersView.vue";
-import ProductDetails from "@/views/ProductDetails.vue";
-import CartView from "@/views/CartView.vue";
-import ProfileView from "@/views/ProfileView.vue";
-import SuccessView from "@/views/SuccessView.vue";
 import { useUserAuth } from "@/stores/userAuth";
 
 const router = createRouter({
@@ -43,13 +33,13 @@ const router = createRouter({
     {
       path: "/otp-verification",
       name: "otpVerification",
-      component: OTPVerification,
+      component: () => import("@/views/auth/OTPVerification.vue"),
       meta: { auth: true },
     },
     {
       path: "/forget-password",
       name: "forgetPassword",
-      component: ForgetPassword,
+      component: () => import("@/views/auth/ForgetPassword.vue"),
       meta: { auth: true },
     },
     {
@@ -63,7 +53,7 @@ const router = createRouter({
     {
       path: "/product/:id",
       name: "productDetails",
-      component: ProductDetails,
+      component: () => import("@/views/product/ProductDetails.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -71,36 +61,36 @@ const router = createRouter({
     {
       path: "/favorites",
       name: "favorites",
-      component: FavoritesView,
+      component: () => import("@/views/FavoritesView.vue"),
       meta: { requiresAuth: true },
     },
     {
       path: "/orders",
       name: "orders",
-      component: OrdersView,
+      component: () => import("@/views/order/OrdersView.vue"),
       meta: { requiresAuth: true },
     },
     {
       path: "/contact",
       name: "contact",
-      component: ContactView,
+      component: () => import("@/views/ContactView.vue"),
     },
     {
       path: "/cart",
       name: "cart",
-      component: CartView,
+      component: () => import("@/views/CartView.vue"),
       meta: { requiresAuth: true },
     },
     {
       path: "/profile",
       name: "profile",
-      component: ProfileView,
+      component: () => import("@/views/ProfileView.vue"),
       meta: { requiresAuth: true },
     },
     {
       path: "/success",
       name: "sucess",
-      component: SuccessView,
+      component: () => import("@/views/order/SuccessView.vue"),
       meta: { requiresAuth: true },
     },
   ],

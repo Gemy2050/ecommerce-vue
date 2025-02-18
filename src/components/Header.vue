@@ -6,7 +6,7 @@ import { Menu, Moon, ShoppingCart, Sun, User, X } from "lucide-vue-next";
 import { useUserAuth } from "@/stores/userAuth";
 import { storeToRefs } from "pinia";
 import Dropdown from "./ui/Dropdown.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useCartStore } from "@/stores/cart";
 
 const cartStore = useCartStore();
@@ -36,6 +36,13 @@ function toggleMode() {
 function toggleMenu() {
   openMenu.value = !openMenu.value;
 }
+
+watch(
+  () => router.currentRoute.value.path,
+  () => {
+    openMenu.value = false;
+  }
+);
 </script>
 
 <template>
@@ -54,42 +61,49 @@ function toggleMenu() {
       <div
         :class="`${
           openMenu ? 'left-0' : 'left-[-100%]'
-        } fixed w-[380px] py-8 md:py-0 h-full max-w-full bg-background top-[64px] z-10 flex-1 md:static flex flex-col md:flex-row gap-4 md:justify-between duration-300 shadow-lg md:shadow-none`"
+        } fixed overflow-hidden md:overflow-visible w-[380px] py-8 md:py-0 h-full max-w-full bg-background top-[64px] z-10 flex-1 md:static flex flex-col md:flex-row gap-4 md:justify-between duration-300 shadow-lg md:shadow-none`"
       >
         <X
           class="absolute block md:hidden left-2 top-2 cursor-pointer"
           @click="toggleMenu"
         />
-        <div class="flex-col md:flex-row flex items-center gap-4 text-[15px]">
+        <div class="flex-col md:flex-row flex items-center gap-4">
           <RouterLink
             v-for="{ name, link } in NAV_LINKS"
             :key="name"
-            class="[&.active]:text-primary hover:text-primary duration-300 font-semibold"
+            class="relative overflow-hidden [&.active]:text-primary [&:hover_.effect]:w-full duration-300"
             :to="link"
             active-class="active"
           >
-            {{ name }}
+            <span
+              class="effect absolute text-primary left-0 w-0 overflow-hidden duration-150 font-bold"
+              >{{ name }}</span
+            >
+            <span class="block font-bold">{{ name }}</span>
           </RouterLink>
         </div>
         <div
           class="flex items-center justify-center gap-4 md:gap-2 lg:gap-4 mt-5 md:mt-0"
         >
           <div>
-            <Moon
-              v-if="isDark"
+            <Sun
               @click="toggleMode"
-              class="cursor-pointer"
+              :class="`${
+                isDark ? 'scale-100' : 'scale-0  w-0 h-0'
+              } cursor-pointer duration-300`"
               :size="25"
             />
-            <Sun v-else @click="toggleMode" class="cursor-pointer" :size="25" />
+            <Moon
+              @click="toggleMode"
+              :class="`${
+                isDark ? 'scale-0 w-0 h-0' : 'scale-100'
+              } cursor-pointer duration-300`"
+              :size="25"
+            />
           </div>
 
           <Dropdown :items="actions">
-            <User
-              v-if="!user?.image"
-              @click="goToProfile"
-              class="cursor-pointer"
-            />
+            <User v-if="!user?.image" class="cursor-pointer" />
             <img
               v-else
               :src="user?.image"
@@ -107,6 +121,14 @@ function toggleMenu() {
             </span>
           </RouterLink>
         </div>
+        <div
+          className="md:hidden -z-10 absolute top-0 left-0 w-[200px] h-[200px] rounded-full bg-primary !opacity-10 blur-3xl "
+          data-aos="fade-right"
+        />
+        <div
+          className="md:hidden -z-10 absolute bottom-20 right-0 w-[200px] h-[200px] rounded-full bg-primary !opacity-10 blur-3xl "
+          data-aos="fade-left"
+        />
       </div>
     </div>
   </header>

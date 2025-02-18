@@ -63,7 +63,7 @@ const onSubmit = handleSubmit(async (values) => {
 });
 </script>
 <template>
-  <div
+  <main
     class="container min-h-[calc(100dvh-64px)] md:min-h-[calc(100dvh-72px)] relative mx-auto py-8"
   >
     <h1
@@ -131,5 +131,5 @@ const onSubmit = handleSubmit(async (values) => {
       width="200"
       height="215"
     />
-  </div>
+  </main>
 </template>

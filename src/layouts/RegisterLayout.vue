@@ -28,10 +28,12 @@ import Logo from "@/components/ui/Logo.vue";
       src="/imgs/square.svg"
       class="hidden md:block md:w-[200px] fixed bottom-0 right-0 z-[-1]"
       alt="square shape"
-      width="{200}"
-      height="{215}"
+      width="200"
+      height="215"
       loading="eager"
       data-aos="fade-left"
+      data-aos-init
+      data-aos-animate
     />
   </section>
 </template>
