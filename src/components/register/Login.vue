@@ -14,6 +14,7 @@ import type { AxiosError } from "axios";
 import { useRouter } from "vue-router";
 import Cookies from "js-cookie";
 import { useUserAuth } from "@/stores/userAuth";
+import { GoogleLogin } from "vue3-google-login";
 
 const { handleSubmit, defineField, errors, isSubmitting } = useForm<ILoginForm>(
   {
@@ -23,8 +24,9 @@ const { handleSubmit, defineField, errors, isSubmitting } = useForm<ILoginForm>(
 
 const toast = useToast();
 const router = useRouter();
-
 const userAuth = useUserAuth();
+
+const isDisabled = ref(false);
 
 const [email] = defineField("email");
 const [password] = defineField("password");
@@ -56,6 +58,38 @@ const onSubmit = handleSubmit(async (values) => {
     }
   }
 });
+
+const handleGoogleLoginSuccess = async (credentialResponse: any) => {
+  try {
+    isDisabled.value = true;
+
+    console.log(credentialResponse);
+
+    const tokenId = credentialResponse.credential;
+    // Send token to backend API to verify and handle login
+    const { status, data } = await axiosInstance.post(
+      "/account/google-signin",
+      { idToken: tokenId }
+    );
+
+    if (status === 200) {
+      userAuth.setUser({ ...data.returnedUser, isGoogleUser: true });
+      router.replace("/");
+    }
+  } catch (error) {
+    const axiosError = error as AxiosError<IAxiosError>;
+    toast({
+      title: axiosError.response?.data.message || "Something went wrong",
+      variant: "destructive",
+    });
+  } finally {
+    isDisabled.value = false;
+  }
+};
+
+const handleGoogleLoginFailure = () => {
+  toast.error("Login failed with Google");
+};
 </script>
 
 <template>
@@ -110,15 +144,43 @@ const onSubmit = handleSubmit(async (values) => {
       size="md"
       rounded="lg"
       class="border-[#DADADA] border my-1"
-      :disabled="isSubmitting"
+      :disabled="isSubmitting || isDisabled"
     >
       Sign in
     </Button>
 
-    <!-- <div class="mt-4 flex items-center gap-4">
+    <div class="mt-4 flex items-center gap-4">
       <hr class="w-full" />
       <span>or</span>
       <hr class="w-full" />
-    </div> -->
+    </div>
+    <div
+      class="relative mt-5 flex items-center justify-center gap-10 rounded-[10px] [&:hover>button]:text-primary duration-300"
+    >
+      <Button
+        type="button"
+        variant="outline"
+        rounded="full"
+        fullWidth
+        class="gap-4"
+        :disabled="isSubmitting"
+      >
+        <img
+          src="/imgs/google.svg"
+          alt="google"
+          class="w-6"
+          width="24"
+          height="24"
+        />
+        Continue with Google
+      </Button>
+
+      <div className=" absolute top-0 left-0 w-full h-full opacity-0 ">
+        <GoogleLogin
+          class="w-full h-full"
+          :callback="handleGoogleLoginSuccess"
+        />
+      </div>
+    </div>
   </form>
 </template>

@@ -10,6 +10,7 @@ import "vue-toastification/dist/index.css";
 import { QueryClient, VueQueryPlugin } from "@tanstack/vue-query";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import vue3GoogleLogin from "vue3-google-login";
 
 const app = createApp(App);
 
@@ -36,6 +37,7 @@ const options: PluginOptions = {
 };
 
 app.use(Toast, options);
+app.use(vue3GoogleLogin, { clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID });
 
 app.mount("#app");
 

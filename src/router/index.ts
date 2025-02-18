@@ -74,6 +74,7 @@ const router = createRouter({
       path: "/contact",
       name: "contact",
       component: () => import("@/views/ContactView.vue"),
+      meta: { requiresAuth: true },
     },
     {
       path: "/cart",
@@ -92,6 +93,10 @@ const router = createRouter({
       name: "sucess",
       component: () => import("@/views/order/SuccessView.vue"),
       meta: { requiresAuth: true },
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      component: () => import("@/views/NotFound.vue"),
     },
   ],
 });

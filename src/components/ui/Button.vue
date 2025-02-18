@@ -5,7 +5,7 @@ import clsx from "clsx"; // Import clsx for merging classes
 import { Loader2 } from "lucide-vue-next";
 
 const buttonStyles = cva(
-  "rounded px-4 py-2 font-medium inline-flex justify-center items-center gap-3 transition-all disabled:opacity-60 disabled:cursor-not-allowed", // Base styles
+  "rounded px-4 py-2 font-medium inline-flex justify-center items-center gap-3 transition-all disabled:opacity-60 disabled:cursor-not-allowed duration-300", // Base styles
   {
     variants: {
       variant: {
