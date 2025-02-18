@@ -7,11 +7,8 @@ import { onMounted } from "vue";
 
 const userStore = useUserAuth();
 const route = useRoute();
-
 onMounted(() => {
-  if (route.meta.requiresAuth) {
-    userStore.getStoredUser();
-  }
+  userStore.getStoredUser();
   document.body?.classList.add(localStorage.getItem("mode") || "light");
 });
 </script>

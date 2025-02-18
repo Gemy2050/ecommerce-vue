@@ -12,7 +12,6 @@ import { axiosInstance } from "@/config/axios.config";
 import { useToast } from "vue-toastification";
 import type { AxiosError } from "axios";
 import { useRouter } from "vue-router";
-import Cookies from "js-cookie";
 import { useUserAuth } from "@/stores/userAuth";
 import { GoogleLogin } from "vue3-google-login";
 
@@ -63,10 +62,8 @@ const handleGoogleLoginSuccess = async (credentialResponse: any) => {
   try {
     isDisabled.value = true;
 
-    console.log(credentialResponse);
-
     const tokenId = credentialResponse.credential;
-    // Send token to backend API to verify and handle login
+
     const { status, data } = await axiosInstance.post(
       "/account/google-signin",
       { idToken: tokenId }
@@ -76,19 +73,14 @@ const handleGoogleLoginSuccess = async (credentialResponse: any) => {
       userAuth.setUser({ ...data.returnedUser, isGoogleUser: true });
       router.replace("/");
     }
-  } catch (error) {
-    const axiosError = error as AxiosError<IAxiosError>;
-    toast({
-      title: axiosError.response?.data.message || "Something went wrong",
+  } catch (error: any) {
+    toast.error({
+      title: error.message || "Something went wrong",
       variant: "destructive",
     });
   } finally {
     isDisabled.value = false;
   }
-};
-
-const handleGoogleLoginFailure = () => {
-  toast.error("Login failed with Google");
 };
 </script>
 
@@ -163,7 +155,6 @@ const handleGoogleLoginFailure = () => {
         rounded="full"
         fullWidth
         class="gap-4"
-        :disabled="isSubmitting"
       >
         <img
           src="/imgs/google.svg"
@@ -175,7 +166,7 @@ const handleGoogleLoginFailure = () => {
         Continue with Google
       </Button>
 
-      <div className=" absolute top-0 left-0 w-full h-full opacity-0 ">
+      <div className=" absolute top-0 left-0 w-full h-full opacity-0">
         <GoogleLogin
           class="w-full h-full"
           :callback="handleGoogleLoginSuccess"
