@@ -2,7 +2,7 @@
   <!-- Trigger Slot -->
   <slot name="trigger" @click="openModal" v-bind="{ openModal }" />
   <TransitionRoot appear :show="isOpen" as="template">
-    <Dialog :open="isOpen" @close="closeModal" class="z-10">
+    <Dialog :open="isOpen" @close="closeModal" class="z-10" :title="title">
       <TransitionChild
         as="template"
         enter="duration-300 ease-out"
@@ -83,11 +83,15 @@ import {
 } from "@headlessui/vue";
 import { X } from "lucide-vue-next";
 
-const props = defineProps<{
+interface DialogProps {
   title: string;
   description?: string;
   action?: () => void;
-}>();
+}
+
+const props = withDefaults(defineProps<DialogProps>(), {
+  description: "",
+});
 
 const isOpen = ref(false);
 
