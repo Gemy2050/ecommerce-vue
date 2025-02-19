@@ -2,7 +2,7 @@
   <!-- Trigger Slot -->
   <slot name="trigger" @click="openModal" v-bind="{ openModal }" />
   <TransitionRoot appear :show="isOpen" as="template">
-    <Dialog as="div" @close="closeModal" class="z-10">
+    <Dialog :open="isOpen" @close="closeModal" class="z-10">
       <TransitionChild
         as="template"
         enter="duration-300 ease-out"
