@@ -14,9 +14,10 @@ import { axiosFormData } from "@/config/axios.config";
 import { useRouter } from "vue-router";
 import type { AxiosError } from "axios";
 
-const { errors, defineField, handleSubmit, isSubmitting } = useForm<IRegisterForm>({
-  validationSchema: registerSchema,
-});
+const { errors, defineField, handleSubmit, isSubmitting } =
+  useForm<IRegisterForm>({
+    validationSchema: registerSchema,
+  });
 const toast = useToast();
 const router = useRouter();
 
@@ -53,7 +54,7 @@ const onSubmit = handleSubmit(async (values) => {
     data-aos="fade-right"
   >
     <InputGroup
-      :class="['firstName', 'secondName'].includes(name) ? 'w-[48%]' : 'w-full'"
+      :class="['firstName', 'secondName'].includes(name) ? 'w-[47%]' : 'w-full'"
       v-for="{ name, type, placeholder } in REGISTER_FORM"
       :key="name"
       :file="name === 'image' ? getInputData(name).value as File : null"

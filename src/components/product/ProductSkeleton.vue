@@ -1,6 +1,6 @@
 <template>
   <div
-    v-for="num in 8"
+    v-for="num in 12"
     :key="num"
     class="animate-pulse bg-gray-400 rounded-lg p-4"
     data-aos="fade-up"

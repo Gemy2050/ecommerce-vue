@@ -2,20 +2,19 @@
 import { NAV_LINKS } from "@/data/links";
 import { RouterLink, useRouter } from "vue-router";
 import Logo from "./ui/Logo.vue";
-import { Menu, Moon, ShoppingCart, Sun, User, X } from "lucide-vue-next";
+import { Menu, ShoppingCart, User, X } from "lucide-vue-next";
 import { useUserAuth } from "@/stores/userAuth";
 import { storeToRefs } from "pinia";
 import Dropdown from "./ui/Dropdown.vue";
 import { ref, watch } from "vue";
 import { useCartStore } from "@/stores/cart";
+import ModeToggler from "./ui/ModeToggler.vue";
 
 const cartStore = useCartStore();
 const userAuth = useUserAuth();
 const { user } = storeToRefs(userAuth);
 const router = useRouter();
 const openMenu = ref(false);
-
-const isDark = ref(localStorage.getItem("mode") === "dark");
 
 const actions = [
   { label: "Profile", action: goToProfile },
@@ -24,13 +23,6 @@ const actions = [
 
 function goToProfile() {
   router.push("/profile");
-}
-
-function toggleMode() {
-  const mode = localStorage.getItem("mode") == "dark" ? "light" : "dark";
-  isDark.value = !isDark.value;
-  document.body.className = mode;
-  localStorage.setItem("mode", mode);
 }
 
 function toggleMenu() {
@@ -69,6 +61,14 @@ watch(
         />
         <div class="flex-col md:flex-row flex items-center gap-4">
           <RouterLink
+            to="/dashboard/home"
+            v-if="user?.role === 'admin'"
+            class="relative overflow-hidden [&.active]:text-primary [&:hover_.effect]:w-full duration-300"
+          >
+            Dashboard
+          </RouterLink>
+
+          <RouterLink
             v-for="{ name, link } in NAV_LINKS"
             :key="name"
             class="relative overflow-hidden [&.active]:text-primary [&:hover_.effect]:w-full duration-300"
@@ -85,22 +85,7 @@ watch(
         <div
           class="flex items-center justify-center gap-4 md:gap-2 lg:gap-4 mt-5 md:mt-0"
         >
-          <div>
-            <Sun
-              @click="toggleMode"
-              :class="`${
-                isDark ? 'scale-100' : 'scale-0  w-0 h-0'
-              } cursor-pointer duration-300`"
-              :size="25"
-            />
-            <Moon
-              @click="toggleMode"
-              :class="`${
-                isDark ? 'scale-0 w-0 h-0' : 'scale-100'
-              } cursor-pointer duration-300`"
-              :size="25"
-            />
-          </div>
+          <ModeToggler />
 
           <Dropdown :items="actions">
             <User v-if="!user?.image" class="cursor-pointer" />

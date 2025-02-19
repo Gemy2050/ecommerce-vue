@@ -4,12 +4,13 @@ import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import { useUserAuth } from "./stores/userAuth";
 import { onMounted } from "vue";
+import { useMode } from "./stores/mode";
 
 const userStore = useUserAuth();
 const route = useRoute();
 onMounted(() => {
+  useMode();
   userStore.getStoredUser();
-  document.body?.classList.add(localStorage.getItem("mode") || "light");
 });
 </script>
 

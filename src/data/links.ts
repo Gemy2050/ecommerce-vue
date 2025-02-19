@@ -36,7 +36,7 @@ export const NAV_LINKS = [
 export const SIDEBAR_LINKS = [
   {
     name: "Home",
-    link: "/dashboard",
+    link: "/home",
     icon: Home,
   },
   {

@@ -125,3 +125,24 @@ export interface IQuery<T> {
   count: number;
   data: T[];
 }
+
+export interface IAnalytics {
+  metrics: {
+    totalOrders: number;
+    totalRevenue: number;
+    totalProducts: number;
+    totalCustomers: number;
+  };
+  charts: {
+    topProducts: {
+      id: string;
+      name: string;
+      quantity: number;
+    }[];
+    salesOverview: {
+      createdAt: string;
+      _sum: { totalAmount: number };
+    }[];
+  };
+  recentOrders: IOrder[];
+}

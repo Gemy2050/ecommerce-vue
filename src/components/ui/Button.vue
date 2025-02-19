@@ -56,6 +56,7 @@ interface ButtonProps {
   disabled?: boolean;
   as?: string;
   to?: string;
+  hideLoader?: boolean;
 }
 
 // Use TypeScript with defineProps
@@ -77,7 +78,7 @@ const classes = computed(() => {
     v-bind="$attrs"
     :disabled="disabled"
   >
-    <Loader2 v-if="disabled" class="w-5 h-5 animate-spin" />
+    <Loader2 v-if="disabled && !hideLoader" class="w-5 h-5 animate-spin" />
     <slot />
   </component>
 </template>

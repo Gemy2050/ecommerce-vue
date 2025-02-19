@@ -95,6 +95,21 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: "/dashboard",
+      name: "dashboard",
+      component: () => import("@/layouts/DashboardLayout.vue"),
+      meta: { admin: true },
+      children: [
+        { path: "", name: "dashboard-index", redirect: "/dashboard/home" },
+        {
+          path: "home",
+          name: "dashboardHome",
+          component: () => import("@/views/dashboard/Home.vue"),
+          meta: { admin: true },
+        },
+      ],
+    },
+    {
       path: "/:pathMatch(.*)*",
       component: () => import("@/views/NotFound.vue"),
     },
