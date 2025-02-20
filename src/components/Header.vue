@@ -38,32 +38,28 @@ watch(
 </script>
 
 <template>
-  <header
-    class="sticky top-0 z-20 bg-background text-foreground shadow-lg py-4"
-  >
-    <div
-      class="px-5 md:px-1 lg:px-5 flex items-center justify-between gap-0 lg:gap-8"
-    >
+  <header class="sticky top-0 z-20 bg-background text-foreground shadow-lg py-4">
+    <div class="px-5 lg:px-5 flex items-center justify-between gap-0 lg:gap-8">
       <RouterLink to="/" class="min-w-[25%] md:min-w-[33%] focus:outline-none">
         <Logo class="text-2xl cursor-pointer" />
       </RouterLink>
-      <button class="md:hidden" @click="toggleMenu">
+      <button class="lg:hidden" @click="toggleMenu">
         <Menu :size="30" class="text-primary" />
       </button>
       <div
         :class="`${
           openMenu ? 'left-0' : 'left-[-100%]'
-        } fixed overflow-hidden md:overflow-visible w-[380px] py-8 md:py-0 h-full max-w-full bg-background top-[64px] z-10 flex-1 md:static flex flex-col md:flex-row gap-4 md:justify-between duration-300 shadow-lg md:shadow-none`"
+        } fixed overflow-hidden lg:overflow-visible w-[380px] py-8 lg:py-0 h-full max-w-full bg-background top-[64px] z-10 flex-1 lg:static flex flex-col lg:flex-row gap-4 lg:justify-between duration-300 shadow-lg lg:shadow-none`"
       >
         <X
-          class="absolute block md:hidden left-2 top-2 cursor-pointer"
+          class="absolute block lg:hidden left-2 top-2 cursor-pointer hover:text-red-500 duration-300"
           @click="toggleMenu"
         />
-        <div class="flex-col md:flex-row flex items-center gap-4">
+        <div class="flex-col lg:flex-row flex items-center gap-4">
           <RouterLink
             to="/dashboard/home"
             v-if="user?.role === 'admin'"
-            class="relative overflow-hidden [&.active]:text-primary [&:hover_.effect]:w-full duration-300"
+            class="relative overflow-hidden font-bold hover:text-primary duration-300"
           >
             Dashboard
           </RouterLink>
@@ -107,11 +103,11 @@ watch(
           </RouterLink>
         </div>
         <div
-          className="md:hidden -z-10 absolute top-0 left-0 w-[200px] h-[200px] rounded-full bg-primary !opacity-10 blur-3xl "
+          className="lg:hidden -z-10 absolute top-0 left-0 w-[200px] h-[200px] rounded-full bg-primary !opacity-10 blur-3xl "
           data-aos="fade-right"
         />
         <div
-          className="md:hidden -z-10 absolute bottom-20 right-0 w-[200px] h-[200px] rounded-full bg-primary !opacity-10 blur-3xl "
+          className="lg:hidden -z-10 absolute bottom-20 right-0 w-[200px] h-[200px] rounded-full bg-primary !opacity-10 blur-3xl "
           data-aos="fade-left"
         />
       </div>

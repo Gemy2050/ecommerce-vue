@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  DollarSign,
-  Package,
-  RefreshCw,
-  ShoppingCart,
-  Users,
-} from "lucide-vue-next";
+import { RefreshCw } from "lucide-vue-next";
 import { useQuery } from "@tanstack/vue-query";
 import { axiosInstance } from "@/config/axios.config";
 import PageTitle from "@/components/ui/PageTitle.vue";
@@ -18,15 +12,11 @@ import Table from "@/components/ui/Table.vue";
 import { getStatusColor } from "@/utils/functions";
 import Dialog from "@/components/ui/Dialog.vue";
 import OrderDetails from "@/components/dashboard/OrderDetails.vue";
+import { ANALYTICS } from "@/data/analytics";
 
 const modeStore = useMode();
 
-const {
-  data: analytics,
-  refetch,
-  isFetching,
-  isLoading,
-} = useQuery<IAnalytics>({
+const { data: analytics, refetch, isFetching, isLoading } = useQuery<IAnalytics>({
   queryKey: ["getAnalytics"],
   queryFn: async () => (await axiosInstance.get("/analytics")).data,
 });
@@ -91,20 +81,10 @@ const topProductsSeries = computed(() => {
 });
 
 // * Recent Orders Table Headers
-const headers = [
-  "name",
-  "Email",
-  "address",
-  "Toatal amount",
-  "Created at",
-  "Status",
-];
+const headers = ["name", "Email", "address", "Toatal amount", "Created at", "Status"];
 </script>
 <template>
-  <div
-    class="flex items-center justify-center h-[calc(100vh-64px)]"
-    v-if="isLoading"
-  >
+  <div class="flex items-center justify-center h-[calc(100vh-64px)]" v-if="isLoading">
     <Spinner />
   </div>
   <div class="space-y-3" v-else>
@@ -121,72 +101,22 @@ const headers = [
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <div
         data-aos="fade-up"
-        class="rounded-lg bg-background p-4 !transition-all !duration-500 hover:!scale-105 hover:shadow-xl cursor-pointer border-l-4 border-l-blue-500"
+        class="rounded-lg bg-background p-4 !transition-all !duration-500 hover:!scale-105 hover:shadow-xl cursor-pointer border-l-4"
+        :class="border"
+        v-for="{ bg, color, icon, title, label, border } in ANALYTICS"
       >
         <div class="flex items-center space-x-4">
-          <div
-            class="p-3 bg-blue-100 rounded-full transition-colors duration-300 hover:bg-blue-200"
-          >
-            <DollarSign class="text-blue-600" />
+          <div class="p-3 rounded-full transition-colors duration-300" :class="bg">
+            <component :is="icon" :class="color" />
           </div>
           <div>
-            <p class="text text-secondary">Revenue</p>
+            <p class="text text-secondary font-bold">{{ title }}</p>
             <h3 class="text-2xl font-bold">
-              {{ Number(analytics?.metrics.totalRevenue).toLocaleString() }}
-            </h3>
-          </div>
-        </div>
-      </div>
-      <div
-        data-aos="fade-up"
-        class="rounded-lg bg-background p-4 !transition-all !duration-500 hover:!scale-105 hover:shadow-xl cursor-pointer border-l-4 border-l-green-500"
-      >
-        <div class="flex items-center space-x-4">
-          <div
-            class="p-3 bg-green-100 rounded-full transition-colors duration-300 hover:bg-green-200"
-          >
-            <ShoppingCart class="text-green-600" />
-          </div>
-          <div>
-            <p class="text text-secondary">Orders</p>
-            <h3 class="text-2xl font-bold">
-              {{ analytics?.metrics.totalOrders }}
-            </h3>
-          </div>
-        </div>
-      </div>
-      <div
-        data-aos="fade-up"
-        class="rounded-lg bg-background p-4 !transition-all !duration-500 hover:!scale-105 hover:shadow-xl cursor-pointer border-l-4 border-l-purple-500"
-      >
-        <div class="flex items-center space-x-4">
-          <div
-            class="p-3 bg-purple-100 rounded-full transition-colors duration-300 hover:bg-purple-200"
-          >
-            <Package class="text-purple-600" />
-          </div>
-          <div>
-            <p class="text text-secondary">Products</p>
-            <h3 class="text-2xl font-bold">
-              {{ analytics?.metrics.totalProducts }}
-            </h3>
-          </div>
-        </div>
-      </div>
-      <div
-        data-aos="fade-up"
-        class="rounded-lg bg-background p-4 !transition-all !duration-500 hover:!scale-105 hover:shadow-xl cursor-pointer border-l-4 border-l-orange-500"
-      >
-        <div class="flex items-center space-x-4">
-          <div
-            class="p-3 bg-orange-100 rounded-full transition-colors duration-300 hover:bg-orange-200"
-          >
-            <Users class="text-orange-600" />
-          </div>
-          <div>
-            <p class="text text-secondary">Customers</p>
-            <h3 class="text-2xl font-bold">
-              {{ analytics?.metrics.totalCustomers }}
+              {{
+                Number(
+                  analytics?.metrics[label as keyof IAnalytics["metrics"]]
+                ).toLocaleString()
+              }}
             </h3>
           </div>
         </div>
@@ -225,7 +155,6 @@ const headers = [
       <div
         class="rounded-lg bg-background col-span-full p-3 sm:p-6 transition-all duration-300 hover:shadow-lg"
         data-aos="fade-up"
-        data-aos-offset="50"
       >
         <h3 class="text-lg font-semibold mb-4">Recent Orders</h3>
         <Table class="!min-w-[1050px]" :headers="headers">
@@ -252,12 +181,8 @@ const headers = [
                 </template>
                 <OrderDetails :order="order" />
               </Dialog>
-
               <span
-                :class="[
-                  getStatusColor(order.status),
-                  'px-2 py-1 rounded-full text-sm',
-                ]"
+                :class="[getStatusColor(order.status), 'px-2 py-1 rounded-full text-sm']"
               >
                 {{ order.status }}
               </span>

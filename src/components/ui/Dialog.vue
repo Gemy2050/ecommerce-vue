@@ -16,9 +16,7 @@
       </TransitionChild>
 
       <div class="fixed inset-0 z-50">
-        <div
-          class="flex min-h-full items-center justify-center p-4 text-center"
-        >
+        <div class="flex min-h-full items-center justify-center p-4 text-center">
           <TransitionChild
             as="template"
             enter="duration-300 ease-out"
@@ -29,18 +27,22 @@
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="dialog-scroll relative w-[700px] max-w-full transform overflow-y-scroll max-h-[600px] bg-background text-foreground rounded-2xl p-6 text-left align-middle shadow-xl transition-all"
+              class="dialog-scroll relative w-[550px] border max-w-full transform overflow-y-scroll max-h-[600px] bg-background text-foreground rounded-2xl p-6 text-left align-middle shadow-xl transition-all"
             >
               <X
-                class="absolute top-2 right-2 cursor-pointer hover:text-red-500"
+                v-if="!action"
+                class="absolute top-5 right-2 cursor-pointer hover:text-red-500"
                 :size="20"
                 @click="closeModal"
               />
-              <DialogTitle as="h3" class="text-lg font-medium leading-6">
-                {{ title }}
-              </DialogTitle>
-              <div class="mt-2">
-                <p class="text-sm text-gray-400" v-if="description">
+
+              <AlertTriangle v-else :size="35" class="text-red-500 mx-auto mb-6" />
+
+              <div :class="`mb-2 ${action && 'text-center'}`">
+                <DialogTitle as="h3" class="text-xl font-medium leading-6">
+                  {{ title }}
+                </DialogTitle>
+                <p class="text-sm text-secondary mt-3" v-if="description">
                   {{ description }}
                 </p>
               </div>
@@ -48,7 +50,7 @@
               <!-- Default Slot -->
               <slot />
 
-              <div class="mt-4 flex gap-4" v-if="action">
+              <div class="mt-5 flex ms-auto justify-end gap-4" v-if="action">
                 <button
                   type="button"
                   class="inline-flex w-[90px] justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -61,7 +63,7 @@
                   class="inline-flex w-[90px] justify-center rounded-md border border-transparent bg-red-500 hover:bg-red-600 px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   @click="handleAction"
                 >
-                  Confirm!
+                  Confirm
                 </button>
               </div>
             </DialogPanel>
@@ -81,12 +83,12 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/vue";
-import { X } from "lucide-vue-next";
+import { AlertTriangle, X } from "lucide-vue-next";
 
 interface DialogProps {
   title: string;
   description?: string;
-  action?: () => void;
+  action?: Function;
 }
 
 const props = withDefaults(defineProps<DialogProps>(), {

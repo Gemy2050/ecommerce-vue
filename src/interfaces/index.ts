@@ -146,3 +146,9 @@ export interface IAnalytics {
   };
   recentOrders: IOrder[];
 }
+
+export interface ICategory {
+  id: number | string;
+  name: string;
+  description: string;
+}

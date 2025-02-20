@@ -13,9 +13,10 @@ const toggleSidebar = inject("toggleSidebar") as Function;
 
 const actions = [{ label: "Logout", action: userAuth.logout }];
 </script>
+
 <template>
   <div
-    class="fixed top-0 left-0 right-0 lg:static z-30 flex items-center shadow-lg bg-background py-3 px-4"
+    class="fixed top-0 left-0 right-0 lg:static z-30 flex items-center shadow-lg bg-background py-2 px-4"
   >
     <MenuSquare
       class="block lg:hidden cursor-pointer hover:text-primary duration-200"
@@ -25,7 +26,7 @@ const actions = [{ label: "Logout", action: userAuth.logout }];
 
     <div class="flex items-center gap-2 ms-auto">
       <ModeToggler />
-      <Dropdown :items="actions">
+      <Dropdown :items="actions" class="mb-[-5px]">
         <UserCircle2 v-if="!user?.image" class="cursor-pointer" />
         <img
           v-else

@@ -17,11 +17,7 @@ const props = defineProps<{
       <thead class="bg-[#666] dark:bg-[#292828] text-white">
         <tr>
           <th class="capitalize p-4 font-bold">#</th>
-          <th
-            v-for="(header, i) in headers"
-            :key="i"
-            class="capitalize p-4 font-bold"
-          >
+          <th v-for="(header, i) in headers" :key="i" class="capitalize p-4 font-bold">
             {{ header }}
           </th>
         </tr>

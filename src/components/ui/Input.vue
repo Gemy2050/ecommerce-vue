@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useAttrs } from "vue";
 const modelValue = defineModel();
 
 interface IInput {
@@ -7,7 +6,6 @@ interface IInput {
   type: string;
 }
 const props = defineProps<IInput>();
-const attrs = useAttrs();
 
 const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -20,7 +18,7 @@ const handleInput = (event: Event) => {
   <input
     :type="type"
     :class="`text-[15px] p-[10px] bg-background outline-none shadow-md border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary rounded-lg w-full duration-300 ${props.class}`"
-    v-bind="attrs"
+    v-bind="$attrs"
     :value="type === 'file' ? undefined : modelValue"
     @input="handleInput"
   />

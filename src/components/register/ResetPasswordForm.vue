@@ -25,7 +25,6 @@ const toast = useToast();
 const router = useRouter();
 
 const onSubmit = handleSubmit(async (values) => {
-  console.log(values);
   try {
     const data = { ...values, email: router.currentRoute.value.query.email };
     await axiosInstance.post("/account/resetPassword", { ...data });

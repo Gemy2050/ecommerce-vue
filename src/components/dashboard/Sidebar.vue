@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import Logo from "../ui/Logo.vue";
-import { computed, inject, watchEffect } from "vue";
+import { inject } from "vue";
 import { SIDEBAR_LINKS } from "@/data/links";
 import { storeToRefs } from "pinia";
 import { useUserAuth } from "@/stores/userAuth";
@@ -11,15 +11,6 @@ const userAuth = useUserAuth();
 const { user } = storeToRefs(userAuth);
 
 const isSidebarOpen = inject("isSidebarOpen");
-
-const handleActiveLink = (isActive: boolean, path: string) => {
-  const isMatchingPath = location.pathname.startsWith("/dashboard" + path);
-  return `${
-    isActive || isMatchingPath
-      ? "border-primary !text-primary font-bold"
-      : "border-transparent "
-  } flex gap-2 items-center p-3 block text-gray-800 dark:text-gray-300 border-e-4 hover:ps-4 hover:border-primary active:border-primary duration-300`;
-};
 </script>
 
 <template>
@@ -36,20 +27,21 @@ const handleActiveLink = (isActive: boolean, path: string) => {
     <ul class="flex flex-col mt-4">
       <li
         v-for="{ link, name, icon } in SIDEBAR_LINKS"
-        key="{name}"
+        :key="name"
         class="border-b border-gray-200 dark:border-b-gray-600"
       >
         <RouterLink
           :to="`/dashboard${link}`"
           active-class="active"
-          :class="handleActiveLink(false, link)"
+          class="[&.active]:border-primary [&.active]:!text-primary font-bold flex gap-2 items-center p-3 text-gray-800 dark:text-gray-300 border-e-4 hover:ps-4 hover:border-primary border-transparent duration-300"
+          :class="{ active: $route.path.startsWith(`/dashboard${link}`) }"
         >
           <component :is="icon" :size="22" />
           {{ name }}
         </RouterLink>
       </li>
     </ul>
-    <div class="mt-auto w-full flex justify-center items-center gap-2 ms-auto">
+    <div class="mt-auto w-full flex justify-center items-center gap-2">
       <div>
         <UserCircle2 v-if="!user?.image" />
         <div class="flex items-center gap-2">
