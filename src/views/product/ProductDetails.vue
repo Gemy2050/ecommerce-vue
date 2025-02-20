@@ -35,9 +35,7 @@ const availableSizes = ref();
 const { data, isLoading, isFetched, error } = useQuery<IProduct>({
   queryKey: ["product", `${productId}`],
   queryFn: async () => {
-    const { data } = await axiosInstance.get(
-      `/product/get-product?id=${productId}`
-    );
+    const { data } = await axiosInstance.get(`/product/get-product?id=${productId}`);
 
     return data;
   },
@@ -62,9 +60,8 @@ watch(
     }
 
     if (product.value) {
-      const sizes = product.value.variants?.find(
-        ({ color }) => color === colorId.value
-      )?.sizes;
+      const sizes = product.value.variants?.find(({ color }) => color === colorId.value)
+        ?.sizes;
 
       availableSizes.value = sizes!;
 
@@ -155,13 +152,8 @@ const handleSetSize = (size: number | string) => {
       </div>
 
       <div class="mt-24 flex flex-col md:flex-row justify-between gap-10">
-        <div
-          class="w-[500px] max-w-full flex flex-col gap-4"
-          data-aos="fade-right"
-        >
-          <h3
-            class="text-3xl font-semibold flex items-center justify-between gap-4"
-          >
+        <div class="w-[500px] max-w-full flex flex-col gap-4" data-aos="fade-right">
+          <h3 class="text-3xl font-semibold flex items-center justify-between gap-4">
             {{ product.productCategory }}
             <div class="font-normal flex gap-2">
               <span

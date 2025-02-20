@@ -20,7 +20,7 @@ const { data, isLoading } = useQuery<IQuery<IProduct>>({
     const { data } = await axiosInstance.get(
       `/product/get-all-products?pageIndex=${pageIndex.value}&pageSize=${PAGE_SIZE}`
     );
-    productsStore.setProducts(data);
+    productsStore.setProducts(data.data);
     return data;
   },
 });
