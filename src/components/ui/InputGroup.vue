@@ -30,6 +30,11 @@ const handleClear = () => {
 <template>
   <div :class="`relative ${props.class || ''}`" id="input-group">
     <slot />
-    <FileInputButtons v-if="file || imgUrl" :file="file" @clear="handleClear" />
+    <FileInputButtons
+      v-if="file || imgUrl"
+      :file="file"
+      :imgUrl="imgUrl"
+      @clear="handleClear"
+    />
   </div>
 </template>

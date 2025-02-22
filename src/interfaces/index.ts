@@ -4,6 +4,7 @@ import type {
   TRegisterInputsNames,
   TResetInputsNames,
 } from "@/types";
+import type { ProductFormSchema } from "@/validation";
 
 export interface IAxiosError {
   status: number;
@@ -19,6 +20,7 @@ export interface IFormInput {
   name: string;
   placeholder: string;
   type: string;
+  label?: string;
   validation?: {
     required?: string;
     minLength?: number;
@@ -42,6 +44,13 @@ export interface IProfileInput extends IFormInput {
 }
 export interface IContactForm extends IFormInput {
   name: TContactInputsNames;
+}
+
+export interface IProductsForm extends IFormInput {
+  name: keyof ProductFormSchema;
+  defaultValue?: string;
+  isDynamicOptions?: boolean;
+  options?: (string | { id: string; name: string })[];
 }
 
 export interface IRegisterForm {
@@ -151,4 +160,17 @@ export interface ICategory {
   id: number | string;
   name: string;
   description: string;
+}
+
+export interface ProductFormData {
+  name: string;
+  description: string;
+  productCategory: string;
+  price: number;
+  hasDiscount: string;
+  discount: number;
+  productCategoryId: number;
+  image: File | null;
+  imageUrl?: string;
+  productImages?: { id: number; imageUrl: string }[];
 }

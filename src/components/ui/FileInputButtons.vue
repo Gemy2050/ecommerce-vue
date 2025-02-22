@@ -3,11 +3,14 @@ import { Eye, Trash2 } from "lucide-vue-next";
 
 const props = defineProps<{
   file?: File | null;
+  imgUrl?: string;
 }>();
 const emit = defineEmits(["clear"]);
 
 const handleClearFile = () => {
-  const input = document.querySelector("input[type='file']") as HTMLInputElement;
+  const input = document.querySelector(
+    "input[type='file']"
+  ) as HTMLInputElement;
   input.value = "";
   emit("clear");
 };

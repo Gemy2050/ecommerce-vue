@@ -16,7 +16,9 @@
       </TransitionChild>
 
       <div class="fixed inset-0 z-50">
-        <div class="flex min-h-full items-center justify-center p-4 text-center">
+        <div
+          class="flex min-h-full items-center justify-center p-4 text-center"
+        >
           <TransitionChild
             as="template"
             enter="duration-300 ease-out"
@@ -36,7 +38,11 @@
                 @click="closeModal"
               />
 
-              <AlertTriangle v-else :size="35" class="text-red-500 mx-auto mb-6" />
+              <AlertTriangle
+                v-else
+                :size="35"
+                class="text-red-500 mx-auto mb-6"
+              />
 
               <div :class="`mb-2 ${action && 'text-center'}`">
                 <DialogTitle as="h3" class="text-xl font-medium leading-6">

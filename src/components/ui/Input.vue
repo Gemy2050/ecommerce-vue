@@ -19,7 +19,7 @@ const handleInput = (event: Event) => {
     :type="type"
     :class="`text-[15px] p-[10px] bg-background outline-none shadow-md border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary rounded-lg w-full duration-300 ${props.class}`"
     v-bind="$attrs"
-    :value="type === 'file' ? undefined : modelValue"
+    :value="type === 'file' ? undefined : modelValue || ''"
     @input="handleInput"
   />
 </template>

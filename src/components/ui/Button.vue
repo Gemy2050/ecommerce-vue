@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { computed } from "vue";
 import clsx from "clsx"; // Import clsx for merging classes
 import { Loader2 } from "lucide-vue-next";
+import type { RouterLinkProps } from "vue-router";
 
 const buttonStyles = cva(
   "rounded px-4 py-2 font-medium inline-flex justify-center items-center gap-3 transition-all disabled:opacity-60 disabled:cursor-not-allowed duration-300", // Base styles
@@ -23,7 +24,7 @@ const buttonStyles = cva(
         link: "text-accent [&:not(:disabled)]:hover:underline",
       },
       size: {
-        sm: "text-sm py-1 px-2",
+        sm: "text-sm py-1 !px-2",
         md: "text-base py-2 px-4",
         lg: "text-lg py-3 px-6",
       },
@@ -55,7 +56,7 @@ interface ButtonProps {
   class?: string;
   disabled?: boolean;
   as?: string;
-  to?: string;
+  to?: RouterLinkProps["to"];
   hideLoader?: boolean;
 }
 

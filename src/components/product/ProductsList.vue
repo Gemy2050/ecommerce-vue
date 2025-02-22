@@ -42,7 +42,7 @@ function handlePageIndexChange(index: number) {
         :product="product"
       />
 
-      <ProductSkeleton v-else />
+      <ProductSkeleton v-if="isLoading" />
     </div>
     <Pagination
       :data="data"

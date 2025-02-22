@@ -22,9 +22,22 @@ export const getImageURL = (imageValue: File | string): string => {
 
 export const addObjectToFormData = (object: Record<string, any>) => {
   const formData = new FormData();
-  Object.keys(object).forEach((key) => {
-    formData.append(key, object[key]);
+  Object.entries(object).forEach(([key, value]) => {
+    if (value instanceof File) {
+      formData.append(key, value);
+      return;
+    }
+
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => {
+        formData.append(`${key}[${index}]`, String(item));
+      });
+      return;
+    }
+
+    formData.append(key, String(value));
   });
+
   return formData;
 };
 

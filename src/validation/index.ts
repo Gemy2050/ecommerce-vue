@@ -124,3 +124,67 @@ export const contactSchema = yup
   .required();
 
 export type ContactFormData = yup.InferType<typeof contactSchema>;
+
+// *** Dashboard  ***
+// ProductForm Schema
+export const productFormSchema = yup.object({
+  image: yup.mixed().test("required", "Image is required", function (value) {
+    const { imageUrl } = this.parent; // Access other fields in the schema
+    // Validate: Either image should be uploaded or imageUrl should exist
+    return imageUrl || value;
+  }),
+  imageUrl: yup.string().optional(),
+  name: yup.string().required("name is required"),
+  description: yup.string().required("description is required"),
+  price: yup
+    .number()
+    .transform((value) => (isNaN(value) ? undefined : value))
+    .required("price is required"),
+  productCategoryId: yup.string().required("category is required"),
+  hasDiscount: yup.string().required("discount is required"),
+  discount: yup
+    .number()
+    .transform((value) => (isNaN(value) ? undefined : value))
+    .when(["hasDiscount", "price"], {
+      is: (hasDiscount: string) => hasDiscount === "Yes",
+      then: (schema) =>
+        schema
+          .required("discount is required")
+          .min(0, "Discount must be positive number")
+          .max(yup.ref("price"), "Discount cannot be greater than price"),
+      otherwise: (schema) => schema.nullable(),
+    }),
+  colors: yup.array().of(
+    yup.object().shape({
+      id: yup
+        .mixed()
+        .default(() => Date.now())
+        .transform((_, originalValue) =>
+          originalValue ? originalValue : Date.now()
+        ),
+      color: yup
+        .string()
+        .required("Color is required")
+        .test("unique", "Color must be unique", function (value) {
+          const colorsList = this.from?.[1].value.colors;
+          return (
+            colorsList.filter((item: any) => item.color === value).length <= 1
+          );
+        }),
+      sizes: yup.array().of(
+        yup.object().shape({
+          id: yup
+            .number()
+            .default(() => Date.now())
+            .transform((_, originalValue) =>
+              originalValue ? originalValue : Date.now()
+            ),
+          size: yup.string().required("Size is required"),
+          quantity: yup.string().required("Quantity is required"),
+        })
+      ),
+    })
+  ),
+});
+
+export type ProductFormSchema = yup.InferType<typeof productFormSchema>;

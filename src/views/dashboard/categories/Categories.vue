@@ -49,7 +49,11 @@ const tableHeaders = ["name", "actions"];
           <td>{{ cat.name }}</td>
 
           <td className="space-x-2 min-w-[105px]">
-            <Button as="link" :to="`edit/${cat.id}`" size="sm">
+            <Button
+              as="link"
+              :to="`/dashboard/categories/edit/${cat.id}`"
+              size="sm"
+            >
               <PenBox :size="16" />
             </Button>
 

@@ -105,28 +105,39 @@ const router = createRouter({
           path: "home",
           name: "dashboardHome",
           component: () => import("@/views/dashboard/Home.vue"),
-          meta: { admin: true },
         },
         {
           path: "categories",
           name: "categiories",
           component: () =>
             import("@/views/dashboard/categories/Categories.vue"),
-          meta: { admin: true },
         },
         {
           path: "categories/add",
           name: "categories-add",
           component: () =>
             import("@/views/dashboard/categories/AddCategory.vue"),
-          meta: { admin: true },
         },
         {
           path: "categories/edit/:id",
           name: "categories-edit",
           component: () =>
             import("@/views/dashboard/categories/EditCategory.vue"),
-          meta: { admin: true },
+        },
+        {
+          path: "products",
+          name: "products-index",
+          component: () => import("@/views/dashboard/products/Products.vue"),
+        },
+        {
+          path: "products/add",
+          name: "products-add",
+          component: () => import("@/views/dashboard/products/AddProduct.vue"),
+        },
+        {
+          path: "products/edit/:id",
+          name: "products-edit",
+          component: () => import("@/views/dashboard/products/EditProduct.vue"),
         },
       ],
     },

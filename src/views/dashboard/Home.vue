@@ -16,7 +16,12 @@ import { ANALYTICS } from "@/data/analytics";
 
 const modeStore = useMode();
 
-const { data: analytics, refetch, isFetching, isLoading } = useQuery<IAnalytics>({
+const {
+  data: analytics,
+  refetch,
+  isFetching,
+  isLoading,
+} = useQuery<IAnalytics>({
   queryKey: ["getAnalytics"],
   queryFn: async () => (await axiosInstance.get("/analytics")).data,
 });
@@ -81,10 +86,20 @@ const topProductsSeries = computed(() => {
 });
 
 // * Recent Orders Table Headers
-const headers = ["name", "Email", "address", "Toatal amount", "Created at", "Status"];
+const headers = [
+  "name",
+  "Email",
+  "address",
+  "Toatal amount",
+  "Created at",
+  "Status",
+];
 </script>
 <template>
-  <div class="flex items-center justify-center h-[calc(100vh-64px)]" v-if="isLoading">
+  <div
+    class="flex items-center justify-center h-[calc(100vh-100px)]"
+    v-if="isLoading"
+  >
     <Spinner />
   </div>
   <div class="space-y-3" v-else>
@@ -106,7 +121,10 @@ const headers = ["name", "Email", "address", "Toatal amount", "Created at", "Sta
         v-for="{ bg, color, icon, title, label, border } in ANALYTICS"
       >
         <div class="flex items-center space-x-4">
-          <div class="p-3 rounded-full transition-colors duration-300" :class="bg">
+          <div
+            class="p-3 rounded-full transition-colors duration-300"
+            :class="bg"
+          >
             <component :is="icon" :class="color" />
           </div>
           <div>
@@ -182,7 +200,10 @@ const headers = ["name", "Email", "address", "Toatal amount", "Created at", "Sta
                 <OrderDetails :order="order" />
               </Dialog>
               <span
-                :class="[getStatusColor(order.status), 'px-2 py-1 rounded-full text-sm']"
+                :class="[
+                  getStatusColor(order.status),
+                  'px-2 py-1 rounded-full text-sm',
+                ]"
               >
                 {{ order.status }}
               </span>
