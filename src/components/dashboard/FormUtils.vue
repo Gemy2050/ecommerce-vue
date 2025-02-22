@@ -68,9 +68,7 @@ interface IProps {
 const props = defineProps<IProps>();
 
 const modelValue = () => {
-  return props.formMethods.defineField(
-    props.field.name as keyof ProductFormSchema
-  )[0];
+  return props.formMethods.defineField(props.field.name as keyof ProductFormSchema)[0];
 };
 
 const handleClearImage = () => {
@@ -84,8 +82,6 @@ const options = computed(() =>
 
 // Watch `hasDiscount` to conditionally render discount field
 const shouldRender = computed(() => {
-  return (
-    props.field.name === "discount" && props.formValues.hasDiscount === "Yes"
-  );
+  return props.field.name === "discount" && props.formValues.hasDiscount === "Yes";
 });
 </script>
