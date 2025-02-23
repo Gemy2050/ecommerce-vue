@@ -12,7 +12,7 @@ const productsStore = useProdutsStore();
 const pageIndex = ref(1);
 const PAGE_SIZE = 12;
 const productsRef = useTemplateRef<HTMLElement>("ProuctsSection");
-const queryKey = computed(() => ["get-products", pageIndex.value]);
+const queryKey = computed(() => ["getAllProducts", pageIndex.value]);
 
 const { data, isLoading } = useQuery<IQuery<IProduct>>({
   queryKey,

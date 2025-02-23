@@ -2,28 +2,19 @@
 import { NAV_LINKS } from "@/data/links";
 import { RouterLink, useRouter } from "vue-router";
 import Logo from "./ui/Logo.vue";
-import { Menu, ShoppingCart, User, X } from "lucide-vue-next";
+import { Menu, ShoppingCart, X } from "lucide-vue-next";
 import { useUserAuth } from "@/stores/userAuth";
 import { storeToRefs } from "pinia";
-import Dropdown from "./ui/Dropdown.vue";
 import { ref, watch } from "vue";
 import { useCartStore } from "@/stores/cart";
-import ModeToggler from "./ui/ModeToggler.vue";
+import ModeToggler from "./ModeToggler.vue";
+import ProfileDropDown from "./ProfileDropDown.vue";
 
 const cartStore = useCartStore();
 const userAuth = useUserAuth();
 const { user } = storeToRefs(userAuth);
 const router = useRouter();
 const openMenu = ref(false);
-
-const actions = [
-  { label: "Profile", action: goToProfile },
-  { label: "Logout", action: userAuth.logout },
-];
-
-function goToProfile() {
-  router.push("/profile");
-}
 
 function toggleMenu() {
   openMenu.value = !openMenu.value;
@@ -82,17 +73,8 @@ watch(
           class="flex items-center justify-center gap-4 md:gap-2 lg:gap-4 mt-5 md:mt-0"
         >
           <ModeToggler />
+          <ProfileDropDown />
 
-          <Dropdown :items="actions">
-            <User v-if="!user?.image" class="cursor-pointer" />
-            <img
-              v-else
-              :src="user?.image"
-              alt="user profile image"
-              loading="lazy"
-              class="w-9 h-9 rounded-full"
-            />
-          </Dropdown>
           <RouterLink to="/cart" class="relative">
             <ShoppingCart :size="30" class="text-g-500 cursor-pointer" />
             <span

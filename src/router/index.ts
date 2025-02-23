@@ -139,6 +139,16 @@ const router = createRouter({
           name: "products-edit",
           component: () => import("@/views/dashboard/products/EditProduct.vue"),
         },
+        {
+          path: "products/images/:id",
+          name: "products-images",
+          component: () => import("@/views/dashboard/images/index.vue"),
+        },
+        {
+          path: "products/images/:id/add",
+          name: "products-images-add",
+          component: () => import("@/views/dashboard/images/AddImages.vue"),
+        },
       ],
     },
     {
@@ -152,6 +162,9 @@ router.beforeEach((to, _, next) => {
   const userAuth = useUserAuth();
   const isAuthenticated = !!userAuth.user;
   if (to.meta.requiresAuth && !isAuthenticated) {
+    return next("/login");
+  }
+  if (to.meta.admin && userAuth.user?.role !== "admin") {
     return next("/login");
   }
 

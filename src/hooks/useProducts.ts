@@ -37,7 +37,6 @@ export function useProducts() {
           `/product/get-all-products?pageSize=${PAGE_SIZE}&pageIndex=${pageIndex.value}`
         )
       ).data,
-    enabled: !productsStore.products.length,
   });
 
   watchEffect(() => {

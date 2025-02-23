@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import { MenuSquare, UserCircle2 } from "lucide-vue-next";
-import Dropdown from "../ui/Dropdown.vue";
-import { useUserAuth } from "@/stores/userAuth";
-import { storeToRefs } from "pinia";
+import { MenuSquare } from "lucide-vue-next";
 import { inject } from "vue";
-import ModeToggler from "../ui/ModeToggler.vue";
-
-const userAuth = useUserAuth();
-const { user } = storeToRefs(userAuth);
+import ModeToggler from "../ModeToggler.vue";
+import ProfileDropDown from "../ProfileDropDown.vue";
 
 const toggleSidebar = inject("toggleSidebar") as Function;
-
-const actions = [{ label: "Logout", action: userAuth.logout }];
 </script>
 
 <template>
@@ -26,15 +19,7 @@ const actions = [{ label: "Logout", action: userAuth.logout }];
 
     <div class="flex items-center gap-2 ms-auto">
       <ModeToggler />
-      <Dropdown :items="actions" class="mb-[-5px]">
-        <UserCircle2 v-if="!user?.image" class="cursor-pointer" />
-        <img
-          v-else
-          :src="user?.image"
-          alt="user"
-          class="w-10 h-10 rounded-full cursor-pointer"
-        />
-      </Dropdown>
+      <ProfileDropDown />
     </div>
   </div>
 </template>

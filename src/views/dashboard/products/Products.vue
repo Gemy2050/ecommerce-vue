@@ -22,14 +22,7 @@ const {
 } = useProducts();
 const productsRef = useTemplateRef<HTMLElement>("ProuctsSection");
 
-const tableHeaders = [
-  "image",
-  "name",
-  "category",
-  "price",
-  "discount",
-  "actions",
-];
+const tableHeaders = ["image", "name", "category", "price", "discount", "actions"];
 </script>
 
 <template>
@@ -57,11 +50,7 @@ const tableHeaders = [
       />
 
       <Table :headers="tableHeaders" v-if="data">
-        <tr
-          v-for="(product, idx) in data?.data"
-          :key="product.id"
-          class="text-center"
-        >
+        <tr v-for="(product, idx) in data?.data" :key="product.id" class="text-center">
           <td>{{ (pageIndex - 1) * PAGE_SIZE + (idx + 1) }}</td>
           <td>
             <img
@@ -78,7 +67,7 @@ const tableHeaders = [
           <td class="space-x-1 min-w-[115px]">
             <Button
               as="link"
-              :to="`images/${product.id}`"
+              :to="`./products/images/${product.id}`"
               class="p-1 !bg-green-600 hover:!bg-green-500 duration-200"
               size="sm"
               rounded="md"

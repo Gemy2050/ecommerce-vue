@@ -43,17 +43,13 @@ const tableHeaders = ["name", "actions"];
         @input="tableSearch($event)"
       />
 
-      <Table v-if="categories && !error" :headers="tableHeaders">
+      <Table v-if="categories && !error" :headers="tableHeaders" class="min-w-[auto]">
         <tr v-for="(cat, idx) in categories" :key="cat.id">
           <td>{{ idx + 1 }}</td>
           <td>{{ cat.name }}</td>
 
           <td className="space-x-2 min-w-[105px]">
-            <Button
-              as="link"
-              :to="`/dashboard/categories/edit/${cat.id}`"
-              size="sm"
-            >
+            <Button as="link" :to="`/dashboard/categories/edit/${cat.id}`" size="sm">
               <PenBox :size="16" />
             </Button>
 
