@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:3000/api";
+const baseURL = "https://kidskiosk-api.vercel.app/api";
 
 export const axiosInstance = axios.create({
   baseURL,
