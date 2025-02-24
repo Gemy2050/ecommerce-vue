@@ -149,6 +149,16 @@ const router = createRouter({
           name: "products-images-add",
           component: () => import("@/views/dashboard/images/AddImages.vue"),
         },
+        {
+          path: "orders",
+          name: "orders-index",
+          component: () => import("@/views/dashboard/orders/index.vue"),
+        },
+        {
+          path: "users",
+          name: "users-index",
+          component: () => import("@/views/dashboard/users/index.vue"),
+        },
       ],
     },
     {

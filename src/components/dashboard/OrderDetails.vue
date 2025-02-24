@@ -11,9 +11,7 @@ defineProps<{
   <div class="space-y-6">
     <!-- Order Date & ID -->
     <div class="bg-[#EEE] dark:bg-[#111] p-4 rounded-lg">
-      <div
-        class="flex flex-wrap justify-center sm:justify-between gap-5 items-center"
-      >
+      <div class="flex flex-wrap justify-center sm:justify-between gap-5 items-center">
         <div class="text-center">
           <p class="text-sm text-secondary">Order ID</p>
           <p class="font-medium">{{ order.id }}</p>
@@ -61,7 +59,7 @@ defineProps<{
       <div class="space-y-3">
         <div
           :key="item.id"
-          class="flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
+          class="flex items-center justify-between p-3 rounded-lg border bg-[#EEE] dark:bg-[#111] hover:bg-accent/50 transition-colors"
           v-for="item in order.items"
         >
           <div class="flex items-center gap-4">

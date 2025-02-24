@@ -48,7 +48,8 @@ const onSubmit = handleSubmit(async (values) => {
       return;
     }
 
-    const formData = addObjectToFormData(values);
+    const dataObject = { ...values, isGoogleUser: user!.isGoogleUser };
+    const formData = addObjectToFormData(dataObject);
     formData.append("id", user!.id);
     const { data } = await axiosFormData.put(
       "/account/update-profile",
@@ -82,9 +83,7 @@ const onSubmit = handleSubmit(async (values) => {
         v-for="{ name, placeholder, type } in PROFILE_FORM"
         :key="name"
         :class="`${
-          ['firstName', 'secondName'].includes(name)
-            ? 'w-full sm:w-[47.5%]'
-            : 'w-full'
+          ['firstName', 'secondName'].includes(name) ? 'w-full sm:w-[47.5%]' : 'w-full'
         }`"
       >
         <InputGroup
